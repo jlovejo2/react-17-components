@@ -1,13 +1,14 @@
 import Speaker from "./Speaker";
 
-function SpeakersList(props) {
+function SpeakersList({ data }) {
+    console.log('data .....', data)
     return (
         <div className="container speakers-list">
             <div className="row">
-                {console.log(props.data)}
-                {/* {props.data.map(function (speaker){
-                    return <Speaker key={speaker.id} speaker={speaker}/>;
-                })} */}
+                { data.map(function (speaker, index) {
+                    console.log('data.map ....', speaker)
+                    return <Speaker key={speaker.id} prop={speaker}/>;
+                }) }
             </div>
         </div>
     );

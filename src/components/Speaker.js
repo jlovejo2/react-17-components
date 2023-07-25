@@ -51,16 +51,17 @@ function SpeakerDemographics({first, last, bio, company, twitterHandle, favorite
     );
 };
 
-function Speaker({ speaker }){
-    const { id, first ,last, sessions } = speaker
+function Speaker(props){
+    console.log('speaker props ...', props)
+    // const { id, first ,last, sessions } = speaker
 
     return (
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
             <div className="card card-height p-4 ,t-4">
-                <SpeakerImg id={id} first={first} last={last} width={"300"} />
-                <SpeakerDemographics {...speaker} />
+                {/* <SpeakerImg id={id} first={first} last={last} width={"300"} /> */}
+                {/* <SpeakerDemographics {...speaker} /> */}
             </div>
-            <Sessions sessions={sessions} />
+            {/* <Sessions sessions={sessions} /> */}
         </div>
     );
 };
