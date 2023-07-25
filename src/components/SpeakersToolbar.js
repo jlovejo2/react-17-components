@@ -1,4 +1,4 @@
-function SpeakersToolbar() {
+function SpeakersToolbar({theme, setTheme, showSessions, setShowSessions}) {
     return (
         <section className="toolbar dark-theme-header">
             <div className="container">
@@ -7,16 +7,16 @@ function SpeakersToolbar() {
                         <li className="d-flex flex-column flex-md-row">
                             <b>Show Session&nbsp;&nbsp;</b>
                             <label className="fav">
-                                <input type="checkbox" checked={true} />
+                                <input type="checkbox" checked={showSessions} onChange={(evt) => {setShowSessions(evt.target.checked)}} />
                                 <span className="switch"></span>
                             </label>
                         </li>
                         <li className="d-flex flex-column flex-md-row">
                             <strong>Theme</strong>
                             <label className="dropdown">
-                                <select className="form-control theme" value="light">
+                                <select className="form-control theme" value={theme} onChange={(evt) => {setTheme(evt.target.value)}}>
                                     <option value="light">Light</option>
-                                    <option cvalue="dark">Dark</option>
+                                    <option value="dark">Dark</option>
                                 </select>
                             </label>
                         </li>

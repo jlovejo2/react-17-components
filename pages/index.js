@@ -1,6 +1,4 @@
-import Speakers from "../src/components/Speaker";
-import { data } from "../SpeakerData";
-import SpeakersList from "../src/components/SpeakersList";
+import Speakers from "../src/components/Speakers";
 
 const IndexPage = () => {
     return (
