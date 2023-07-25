@@ -4,24 +4,24 @@ function Session({ title, room }) {
         <span className="session w-100">
             {title} <strong>Room: {room.name}</strong>
         </span>
-    )
-}
+    );
+};
 
 function Sessions({sessions}) {
     return (
         <div className="sessionBox card h-250">
             <Session {...sessions[0]} />
         </div>
-    )
-}
+    );
+};
 
 function SpeakerImg({id, first, last, width}){
     return (
         <div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
             <img className="contain-fit" src={`/images/speaker-${id}.jpg`} width={width} alt={`${first} ${last}`} />
         </div>
-    )
-}
+    );
+};
 
 function SpeakerDemographics({first, last, bio, company, twitterHandle, favorite}){
     return (
@@ -48,12 +48,12 @@ function SpeakerDemographics({first, last, bio, company, twitterHandle, favorite
             </div>
         </div>
     </div>
-    )
-}
+    );
+};
 
 function Speaker({ speaker }){
-    const {id, first ,last, sessions } = speaker
-    
+    const { id, first ,last, sessions } = speaker
+
     return (
         <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
             <div className="card card-height p-4 ,t-4">
@@ -62,7 +62,7 @@ function Speaker({ speaker }){
             </div>
             <Sessions sessions={sessions} />
         </div>
-    )
-}
+    );
+};
 
 export default Speaker;
