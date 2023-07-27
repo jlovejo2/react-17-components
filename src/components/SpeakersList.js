@@ -1,6 +1,7 @@
 import Speaker from "./Speaker";
 import ContentLoader from 'react-content-loader'
-import useRequestSpeakers from "../hooks/useRequestSpeakers";
+import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
+import { data } from "../../SpeakerData";
 
 // Create a custom loader
 const MyLoader = () => (
@@ -14,10 +15,10 @@ const MyLoader = () => (
 
 function SpeakersList({ showSessions }) {
 
-    const { speakersData, isLoading, hasErrored, error, onFavoriteToggle } = useRequestSpeakers(2000);
+    const { data: speakersData, requestStatus, error, updateRecord } = useRequestDelay(2000, data);
 
 
-    if (hasErrored === true) {
+    if (requestStatus === REQUEST_STATUS.FAILURE) {
         return (
             <div className="text-danger">
                 ERROR: <b>loading Speader Data Failed: {error}</b>
@@ -25,7 +26,7 @@ function SpeakersList({ showSessions }) {
         )
     }
 
-    if (isLoading === true) {
+    if (requestStatus === REQUEST_STATUS.LOADING) {
         return (
             <MyLoader />
         )
@@ -35,7 +36,7 @@ function SpeakersList({ showSessions }) {
         <div className="container speakers-list">
             <div className="row">
                 { speakersData.map(function (speaker, index) {
-                    return <Speaker key={speaker.id} speaker={speaker} showSessions={showSessions} onFavoriteToggle={() => onFavoriteToggle(speaker.id)}/>;
+                    return <Speaker key={speaker.id} speaker={speaker} showSessions={showSessions} onFavoriteToggle={(doneCallback) => updateRecord({...speaker, favorite: !speaker.favorite}, doneCallback)}/>;
                 }) }
             </div>
         </div>
