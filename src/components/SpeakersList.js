@@ -3,6 +3,7 @@ import ContentLoader from 'react-content-loader'
 import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
 import { data } from "../../SpeakerData";
 
+
 // Create a custom loader
 const MyLoader = () => (
   <ContentLoader>
@@ -13,8 +14,7 @@ const MyLoader = () => (
 )
 
 
-function SpeakersList({ showSessions }) {
-
+function SpeakersList() {
     const { data: speakersData, requestStatus, error, updateRecord } = useRequestDelay(2000, data);
 
 
@@ -36,7 +36,7 @@ function SpeakersList({ showSessions }) {
         <div className="container speakers-list">
             <div className="row">
                 { speakersData.map(function (speaker, index) {
-                    return <Speaker key={speaker.id} speaker={speaker} showSessions={showSessions} onFavoriteToggle={(doneCallback) => updateRecord({...speaker, favorite: !speaker.favorite}, doneCallback)}/>;
+                    return <Speaker key={speaker.id} speaker={speaker} onFavoriteToggle={(doneCallback) => updateRecord({...speaker, favorite: !speaker.favorite}, doneCallback)}/>;
                 }) }
             </div>
         </div>
