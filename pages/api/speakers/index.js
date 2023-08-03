@@ -9,6 +9,8 @@ const delay = (ms) => new Promise ((resolve) => { setTimeout(resolve, ms)});
 export default async function handler(req, res) {
     // res.status(200).send(JSON.stringify(data, null, 2));
 
+    console.log('in api index handler.....')
+
     const jsonFile = path.resolve("./", "db.json");
     try {
         const readFileData = await readFile(jsonFile);
@@ -17,7 +19,7 @@ export default async function handler(req, res) {
 
         if (speakers) {
             res.setHeader("Content-Type", "application/json");
-            res.status(200).send(JSON.stringify(data, null, 2));
+            res.status(200).send(JSON.stringify(speakers, null, 2));
             console.log("GET /api/speakers status: 200");
         }
     } catch (err){

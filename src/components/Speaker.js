@@ -32,12 +32,28 @@ function Sessions() {
     );
 };
 
+function ImageWithFallback({src, ...props}) {
+    const [error, setError] = useState(false);
+    const [imgSrc, setImgSrc] = useState(src);
+
+    function onError() {
+        if (!error) {
+            setImgSrc("/images/speaker-99999.jpg");
+            setError(true);
+        }
+    }
+
+    return (
+        <img src={imgSrc} {...props} onError={onError}/>
+    );
+}
+
 function SpeakerImg({width}){
     const { speaker: {id, first, last}} = useContext(SpeakerContext);
 
     return (
         <div className="speaker-img d-flex flex-row justify-content-center align-items-center h-300">
-            <img className="contain-fit" src={`/images/speaker-${id}.jpg`} width={width} alt={`${first} ${last}`} />
+            <ImageWithFallback className="contain-fit" src={`/images/speaker-${id}.jpg`} width={width} alt={`${first} ${last}`} />
         </div>
     );
 };
@@ -98,6 +114,7 @@ function SpeakerDemographics(){
 };
 
 function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }){
+    console.log(' in speaker component...........');
     const { showSessions } = useContext(SpeakerFilterContext);
 
     return (

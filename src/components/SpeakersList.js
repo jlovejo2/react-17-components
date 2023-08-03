@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Speaker from "./Speaker";
 import ContentLoader from 'react-content-loader'
-import useRequestDelay, { REQUEST_STATUS } from "../hooks/useRequestDelay";
+import useRequestRest, { REQUEST_STATUS } from "../hooks/useRequestRest";
 import { data } from "../../SpeakerData";
 import { SpeakerFilterContext } from "../context/SpeakerFilterContext";
 import SpeakerAdd from "./SpeakerAdd";
@@ -17,9 +17,10 @@ const MyLoader = () => (
 
 
 function SpeakersList() {
-    const { data: speakersData, requestStatus, error, updateRecord, insertRecord, deleteRecord } = useRequestDelay(2000, data);
-    const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
 
+    const { data: speakersData, requestStatus, error, updateRecord, insertRecord, deleteRecord } = useRequestRest();
+    const { searchQuery, eventYear } = useContext(SpeakerFilterContext);
+    console.log('in speakers list component ....', speakersData, requestStatus, error);
     if (requestStatus === REQUEST_STATUS.FAILURE) {
         return (
             <div className="text-danger">
