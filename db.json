@@ -4,7 +4,7 @@
       "id": "47344",
       "first": "Joe",
       "last": "Biden",
-      "bio": "Bio not entered yet",
+      "xbio": "Bio not entered yet",
       "sessions": [
         {
           "id": "8888",
@@ -14,7 +14,8 @@
           },
           "eventYear": "2019"
         }
-      ]
+      ],
+      "favorite": false
     },
     {
       "id": "1269",

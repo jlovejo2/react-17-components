@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useContext, memo } from "react";
 import { SpeakerFilterContext } from "../context/SpeakerFilterContext";
 import { SpeakerProvider, SpeakerContext } from "../context/SpeakerContext";
 import SpeakerDelete from "./SpeakerDelete";
+import ErrorBoundary from "./ErrorBoundary";
 
 function Session({ title, room }) {    
     return (
@@ -95,7 +96,7 @@ function SpeakerDemographics(){
         <SpeakerFavorite />
         <div>
             <p className="card-description" >
-                {bio}
+                {bio.substr(0,70)}
             </p>
             <div className="social d-flex flex-row mt-4">
                 <div className="company">
@@ -113,9 +114,24 @@ function SpeakerDemographics(){
     );
 };
 
-function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }){
+const SpeakerNoErrorBoundary = memo(function Speaker({ speaker, updateRecord, insertRecord, deleteRecord, showErrorCard }){
     console.log(' in speaker component...........');
     const { showSessions } = useContext(SpeakerFilterContext);
+
+
+    if (showErrorCard) {
+        return (
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-4 col-sm-12 col-xs-12">
+                <div className="card card-height p-4 ,t-4">
+                    <img src={"/images/speaker-99999.jpg"} />
+                    <div>
+                        <b>Error Showing Speaker</b>
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
 
     return (
         <SpeakerProvider speaker={speaker} updateRecord={updateRecord} insertRecord={insertRecord} deleteRecord={deleteRecord}>
@@ -129,6 +145,23 @@ function Speaker({ speaker, updateRecord, insertRecord, deleteRecord }){
             </div>
         </SpeakerProvider>
     );
-};
+}, areEqualSpeaker);
 
-export default Speaker;
+function SpeakerErrorBoundary(props) {
+    return (
+        <ErrorBoundary 
+            errorUI={
+                <SpeakerNoErrorBoundary {...props} showErrorCard={true}/>
+            }
+        >
+            <SpeakerNoErrorBoundary {...props}>
+            </SpeakerNoErrorBoundary>
+        </ErrorBoundary>
+    )
+}
+
+function areEqualSpeaker(prevProps, nextProps) {
+    return (prevProps.speaker.favorite === nextProps.speaker.favorite);
+}
+
+export default SpeakerErrorBoundary;
